@@ -92,8 +92,20 @@ function startGame() {
 		unanswered: 0
 	}
 
+	var startTime = 15;
+
 	console.log(getRandomQuestion());
 
+
+	function buildTimerElement() {
+		var timerRow = $("<div>").addClass("row");
+		var timerCol = $("<div>").addClass("col-xs-12");
+		var timerText = $("<h4>").text("Time Remaining: ");
+		var countdown = $("<span>").attr("id", "countdown");
+		$(countdown).text(`${startTime} Seconds`);
+
+		myAppend(countdown, timerText, timerCol, timerRow);
+	}
 
 	function getRandomQuestion() {
 		//get array of trivia object keys
@@ -110,6 +122,12 @@ function startGame() {
 		// return question
 		return possQuestions[randomNum];
 	}
+
+	function showQuestion(questionObj) {
+
+
+	}
+
 
 
 }
