@@ -312,7 +312,6 @@ function nextQuestion() {
 	}else{
 		gameOver();
 	}
-
 }
 
 // after all questions have been asked, end game and show stats
@@ -320,6 +319,8 @@ function gameOver() {
 	var playArea = $("#play-area-row");
 
 	clearPlayArea();
+
+	$("#timer-row").remove();
 
 	buildStatsDisplay();
 
@@ -363,13 +364,16 @@ function gameOver() {
 	}
 }
 
+// reset the game to the beginning
 function resetGame() {
 	// reset trivia questions to unasked
 	for(var question in trivia){
 		trivia[question].asked = false;
 	}
 
-	
+	$(contentDiv).html("");
+
+	startGame();
 }
 
 // clear the play area element
