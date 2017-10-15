@@ -13,8 +13,8 @@ var trivia = {
 		answer: "B",
 		choices: ["A","B","C","D"],
 		asked: false 
-	},
-	three: {
+	}
+/*	three: {
 		question: "C",
 		answer: "C",
 		choices: ["A","B","C","D"],
@@ -61,7 +61,7 @@ var trivia = {
 		answer: "B",
 		choices: ["A","B","C","D"],
 		asked: false 
-	}
+	} */
 }
 
 var contentDiv = $("#content");
@@ -73,8 +73,9 @@ var stats = {
 	unanswered: 0
 }
 
-// variable to hold starting time for each question
+// variables to hold starting time, and time between questions
 var startTime = 15;
+var waitTime = 4;
 
 // object to hold current question
 var currentQuestion;
@@ -244,7 +245,7 @@ function correctAnswer() {
 	stats.correct += 1;
 
 	// after n seconds move to the next question
-	setTimeout(nextQuestion, 5 * 1000);
+	setTimeout(nextQuestion, waitTime * 1000);
 
 	console.log("correct");
 }
@@ -269,7 +270,7 @@ function incorrectAnswer() {
 	stats.incorrect += 1;
 
 	// after n seconds move to the next question
-	setTimeout(nextQuestion, 5 * 1000);
+	setTimeout(nextQuestion, waitTime * 1000);
 
 	console.log("incorrect");
 }
@@ -294,7 +295,7 @@ function questionTimeUp() {
 	stats.unanswered += 1;
 
 	// after n seconds move to the next question
-	setTimeout(nextQuestion, 5 * 1000);
+	setTimeout(nextQuestion, waitTime * 1000);
 
 	console.log("Time Up");
 }
@@ -305,19 +306,24 @@ function nextQuestion() {
 
 	var question = getRandomQuestion();
 
-	if(question) {
+	if(question !== undefined) {
 		buildQuestionElement(question);
 		startTimers();
 	}else{
 		gameOver();
 	}
 
-	console.log("next");
 }
 
 // after all questions have been asked, end game and show stats
 function gameOver() {
+	var playArea = $("#play-area-row");
+
 	clearPlayArea();
+
+	buildStatsDisplay();
+
+	buildResetBtn();
 
 	function buildStatsDisplay() {
 		// show final stats page with number of correct/incorrect/skipped
@@ -325,7 +331,7 @@ function gameOver() {
 		var headText = $("<h3>").attr("id", "stats-head");
 		headText.text("All done, here's how you did!");
 
-		myAppend(headText, statsHead, contentDiv);
+		myAppend(headText, statsHead, playArea);
 
 		var statsList = $("<div>")
 		$(statsList).addClass("col-xs-12").attr("id", "stat-list");
@@ -340,11 +346,30 @@ function gameOver() {
 			$(statsList).append(textEl);
 		}
 
-		$(contentDiv).append(statsList);
+		$(playArea).append(statsList);
 	}
 	
 	// include button to restart game.
+	function buildResetBtn() {
+		var btnDiv = $("<div>").addClass("col-xs-12");
+		var resetBtn = $("<button>").attr("id", "reset-btn");
+		resetBtn.text("Play Again?");
 
+		myAppend(resetBtn, btnDiv, playArea);
+
+		$(resetBtn).click(function(){
+			resetGame();
+		})
+	}
+}
+
+function resetGame() {
+	// reset trivia questions to unasked
+	for(var question in trivia){
+		trivia[question].asked = false;
+	}
+
+	
 }
 
 // clear the play area element
