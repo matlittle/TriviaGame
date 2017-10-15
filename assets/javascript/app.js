@@ -94,6 +94,8 @@ function startGame() {
 
 	var startTime = 15;
 
+	var currentQuestion;
+
 	init();
 
 	// function to initilize game area and choose first question
@@ -103,6 +105,8 @@ function startGame() {
 		buildPlayArea();
 
 		buildQuestionElement(getRandomQuestion());
+
+		startTimer();
 	}
 
 	// build initil timer element and append to page
@@ -122,7 +126,7 @@ function startGame() {
 		$(contentDiv).append(playArea);
 	}
 
-	// build question from given question object
+	// build question element from given question object
 	function buildQuestionElement(obj) {
 		var playArea = $("#play-area-row");
 
@@ -164,8 +168,29 @@ function startGame() {
 		// get random number to select possible question
 		randomNum = Math.floor(Math.random() * possQuestions.length);
 		
-		// return question
-		return trivia[possQuestions[randomNum]];
+		// set current question variable to randomly selected question
+		currentQuestion = trivia[possQuestions[randomNum]]
+
+		// return current question
+		return currentQuestion;
+	}
+
+	// start the timer for the current question
+	function startTimer() {
+		// call the questionTimeUp function if time runs out
+		var questionTime = setTimeout(function(){
+			questionTimeUp();
+		}, startTime * 1000);
+
+		var currentTime = startTime;
+
+		// update the countdown display every second
+		var countdown = setInterval(function(){
+			if(currentTime > 0){
+				currentTime -= 1;
+				$("#countdown").text(`${currentTime} Seconds`);
+			}
+		}, 1000);
 	}
 
 
