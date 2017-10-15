@@ -105,7 +105,7 @@ function startGame() {
 	buildPlayArea();
 
  	// choose first question
-	buildQuestionElement(getRandomQuestion());
+ 	buildQuestionElement(getRandomQuestion());
 
 	// start timers
 	startTimers();
@@ -209,6 +209,7 @@ function startTimers() {
 	}, 1000);
 }
 
+// clear question and countdown timers
 function clearTimers() {
 	clearTimeout(questionTime);
 	clearTimeout(countdown);
@@ -300,7 +301,7 @@ function questionTimeUp() {
 
 // choose the next question and start timer
 function nextQuestion() {
-	$("#play-area-row").html("")
+	clearPlayArea();
 
 	var question = getRandomQuestion();
 
@@ -314,14 +315,35 @@ function nextQuestion() {
 	console.log("next");
 }
 
-// end game and show stats
+// after all questions have been asked, end game and show stats
 function gameOver() {
-	$("#play-area-row").html("");
+	clearPlayArea();
 
-	// after all questions have been asked
-	// show final stats page with number of correct/incorrect/skipped
-	// include button to restart game. 
+	function buildStatsDisplay() {
+		// show final stats page with number of correct/incorrect/skipped
+		var statsHead = $("<div>").addClass("col-xs-12");
+		var headText = $("<h3>").attr("id", "stats-head");
+		headText.text("All done, here's how you did!");
 
+		myAppend(headText, statsHead, contentDiv);
+
+		var statsList = $("<div>")
+		$(statsList).addClass("col-xs-12").attr("id", "stat-list");
+
+		for(var stat in stats) {
+			var textEl = $("<p>")
+			var text = stat[0].toUpperCase() + stat.slice(1);
+			text += `: ${stats[stat]}`;
+
+			textEl.text(text);
+
+			$(statsList).append(textEl);
+		}
+
+		$(contentDiv).append(statsList);
+	}
+	
+	// include button to restart game.
 
 }
 
