@@ -94,42 +94,78 @@ function startGame() {
 
 	var startTime = 15;
 
-	console.log(getRandomQuestion());
+	init();
 
+	// function to initilize game area and choose first question
+	function init() {
+		buildTimerElement();
 
+		buildPlayArea();
+
+		buildQuestionElement(getRandomQuestion());
+	}
+
+	// build initil timer element and append to page
 	function buildTimerElement() {
-		var timerRow = $("<div>").addClass("row");
+		var timerRow = $("<div>").addClass("row").attr("id", "timer-row");
 		var timerCol = $("<div>").addClass("col-xs-12");
 		var timerText = $("<h4>").text("Time Remaining: ");
 		var countdown = $("<span>").attr("id", "countdown");
 		$(countdown).text(`${startTime} Seconds`);
 
-		myAppend(countdown, timerText, timerCol, timerRow);
+		myAppend(countdown, timerText, timerCol, timerRow, contentDiv);
 	}
 
+	// build and append initial timer element
+	function buildPlayArea() {
+		var playArea = $("<div>").addClass("row").attr("id", "play-area-row");
+		$(contentDiv).append(playArea);
+	}
+
+	// build question from given question object
+	function buildQuestionElement(obj) {
+		var playArea = $("#play-area-row");
+
+		var question = $("<div>").addClass("col-xs-12").attr("id", "question");
+		var questionText = $("<h4>").text(obj.question);
+
+		var choices = $("<div>").addClass("col-xs-12").attr("id", "choices");
+		var choicesList = buildChoicesList(obj.choices);
+
+		// set asked to true for current question
+		obj.asked = true;
+
+		myAppend(questionText, question, playArea);
+		myAppend(choicesList, choices, playArea);
+	}
+
+	// build choices list from question choices array
+	function buildChoicesList(arr) {
+		var list = $("<ul>");
+
+		arr.forEach(function(choice) {
+			var listItem = $("<li>").text(choice);
+			$(list).append(listItem);
+		})
+
+		return list;
+	}
+
+	// get a random question that has not been asked
 	function getRandomQuestion() {
 		//get array of trivia object keys
 		var keys = Object.getOwnPropertyNames(trivia);
-
-		console.log(keys);
 
 		// get possible trivia questions where asked is false
 		var possQuestions = jQuery.grep(keys, function(question){
 			return !trivia[question].asked;
 		});
 
-		console.log(possQuestions);
-
 		// get random number to select possible question
 		randomNum = Math.floor(Math.random() * possQuestions.length);
 		
 		// return question
-		return possQuestions[randomNum];
-	}
-
-	function showQuestion(questionObj) {
-
-
+		return trivia[possQuestions[randomNum]];
 	}
 
 
