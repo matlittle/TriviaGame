@@ -111,10 +111,14 @@ function startGame() {
 		//get array of trivia object keys
 		var keys = Object.getOwnPropertyNames(trivia);
 
+		console.log(keys);
+
 		// get possible trivia questions where asked is false
 		var possQuestions = jQuery.grep(keys, function(question){
 			return !trivia[question].asked;
 		});
+
+		console.log(possQuestions);
 
 		// get random number to select possible question
 		randomNum = Math.floor(Math.random() * possQuestions.length);
