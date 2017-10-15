@@ -66,6 +66,7 @@ var trivia = {
 var contentDiv = $("#content");
 
 
+showStartPage();
 
 // show initial starting screen with option to begin trivia game
 function showStartPage() {
@@ -90,14 +91,21 @@ function startGame() {
 		unanswered: 0
 	}
 
+	console.log(getRandomQuestion());
+
+
 	function getRandomQuestion() {
 		//get array of trivia object keys
 		var keys = Object.keys('trivia');
+
+		console.log(keys);
 
 		// get possible trivia questions where asked is false
 		var possQuestions = jQuery.grep(keys, function(question){
 			return !question.asked;
 		});
+
+		console.log(possQuestions);
 
 		// get random number to select possible question
 		randomNum = Math.floor(Math.random() * possQuestion.length);
@@ -105,6 +113,7 @@ function startGame() {
 		// return question
 		return possQuestions[randomNum];
 	}
+
 
 }
 
