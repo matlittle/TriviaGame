@@ -1,6 +1,7 @@
 // initialize variables needed to begin the game
+
+// object to hold questions, choices, and correct answer
 var trivia = {
-	// object to hold questions, choices, and correct answer
 	one: {
 		question: "A",
 		answer: "A",
@@ -70,7 +71,7 @@ showStartPage();
 
 // show initial starting screen with option to begin trivia game
 function showStartPage() {
-	var startDiv = $("<div>").className("row")
+	var startDiv = $("<div>").addClass("row")
 	var startBtn = $("<h2>").attr("id", "start-btn").text("Start");
 
 	myAppend(startBtn, startDiv, contentDiv);
@@ -96,19 +97,15 @@ function startGame() {
 
 	function getRandomQuestion() {
 		//get array of trivia object keys
-		var keys = Object.keys('trivia');
-
-		console.log(keys);
+		var keys = Object.getOwnPropertyNames(trivia);
 
 		// get possible trivia questions where asked is false
 		var possQuestions = jQuery.grep(keys, function(question){
-			return !question.asked;
+			return !trivia[question].asked;
 		});
 
-		console.log(possQuestions);
-
 		// get random number to select possible question
-		randomNum = Math.floor(Math.random() * possQuestion.length);
+		randomNum = Math.floor(Math.random() * possQuestions.length);
 		
 		// return question
 		return possQuestions[randomNum];
