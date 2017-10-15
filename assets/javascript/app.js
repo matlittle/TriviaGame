@@ -111,7 +111,7 @@ function startGame() {
 
 		buildQuestionElement(getRandomQuestion());
 
-		startTimer();
+		startTimers();
 	}
 
 	// build initil timer element and append to page
@@ -189,7 +189,7 @@ function startGame() {
 	}
 
 	// start the timer for the current question
-	function startTimer() {
+	function startTimers() {
 		// call the questionTimeUp function if time runs out
 		questionTime = setTimeout(function(){
 			questionTimeUp();
@@ -228,15 +228,42 @@ function startGame() {
 	}
 
 	function correctAnswer() {
+		// if the user answers correctly
+		var playArea = $("#play-area-row");
+		playArea.html("");
+
+		// show that they answered correctly
+		var header = $("<div>").addClass("col-xs-12");
+		var winText = $("<h2>").text("Correct!");
+		myAppend(winText, header, playArea);
+
+		// increment number of correct answers
+		stats.correct += 1;
+
+		// after n seconds move to the next question
+		setTimeout(nextQuestion, 5 * 1000);
+
 		console.log("correct");
 	}
 
 	function incorrectAnswer() {
+		// if they answer incorrectly
+		// show the correct answer
+		// increment number of incorrect guesses
+		// after n seconds move to the next question
 		console.log("incorrect");
 	}
 
 	function questionTimeUp() {
+		// if the time runs out
+		// show the correct answer
+		// increment the number of skipped questions
+		// after n seconds move to the next question
 		console.log("Time Up");
+	}
+
+	function nextQuestion() {
+		console.log("next");
 	}
 
 
@@ -245,20 +272,11 @@ function startGame() {
 }
 
 
-	// if the user answers correctly
-		// show that they answered correctly
-		// increment number of correct answers
-		// after n seconds move to the next question
+	
 
-	// if they answer incorrectly
-		// show the correct answer
-		// increment number of incorrect guesses
-		// after n seconds move to the next question
+	
 
-	// if the time runs out
-		// show the correct answer
-		// increment the number of skipped questions
-		// after n seconds move to the next question
+	
 
 // after all questions have been asked
 // show final stats page with number of correct/incorrect/skipped answers
