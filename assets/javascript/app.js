@@ -149,13 +149,38 @@ function buildQuestionElement(obj) {
 	function buildChoicesList(arr) {
 		var list = $("<ul>");
 
-		arr.forEach(function(choice) {
+		// randomize choices into randomOrder arr
+		var randomOrder = randomizeArr(arr);
+
+		randomOrder.forEach(function(choice) {
 			var listItem = $("<li>").text(choice);
 			attachClickListener(listItem);
 			$(list).append(listItem);
 		})
 
 		return list;
+
+		function randomizeArr(arr) {
+			var previous = [];
+			var newOrder = [];
+
+			function randUniqueNum() {
+				var randNum = Math.floor(Math.random() * 4);
+				if(previous.indexOf(randNum) < 0) {
+					previous.push(randNum);
+					return randNum;
+				} else {
+					return randNum();
+				}
+			}
+
+			for(var i = 0; i < 4; i += 1){
+				var rand = randUniqueNum();
+				newOrder.push(arr[rand]);
+			}
+
+			return newOrder;
+		}
 
 		function attachClickListener(el) {
 			$(el).click(function() {
