@@ -141,18 +141,26 @@ function startGame() {
 
 		myAppend(questionText, question, playArea);
 		myAppend(choicesList, choices, playArea);
-	}
 
-	// build choices list from question choices array
-	function buildChoicesList(arr) {
-		var list = $("<ul>");
+		// build choices list from question choices array
+		function buildChoicesList(arr) {
+			var list = $("<ul>");
 
-		arr.forEach(function(choice) {
-			var listItem = $("<li>").text(choice);
-			$(list).append(listItem);
-		})
+			arr.forEach(function(choice) {
+				var listItem = $("<li>").text(choice);
+				attackClickListener(listItem);
+				$(list).append(listItem);
+			})
 
-		return list;
+			return list;
+
+			function attachClickListener(el) {
+				$(el).click(function() {
+					$(el).off("click");
+					checkAnswer(this);
+				});
+			}
+		}
 	}
 
 	// get a random question that has not been asked
@@ -193,7 +201,17 @@ function startGame() {
 		}, 1000);
 	}
 
+	// check the clicked answer
+	function checkAnswer(el) {
+		var choice = $(el).text();
+		var answer = currentQuestion.answer;
 
+		if(choice === answer) {
+			correctAnswer();
+		} else if(choice !== answer) {
+			incorrectAnswer();
+		}
+	}
 
 }
 
