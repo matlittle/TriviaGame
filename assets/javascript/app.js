@@ -92,13 +92,18 @@ function startGame() {
 		unanswered: 0
 	}
 
+	// variable to hold starting time for each question
 	var startTime = 15;
 
+	// object to hold current question
 	var currentQuestion;
+
+	// timeout and interval variables
+	var questionTime, countdown;
 
 	init();
 
-	// function to initilize game area and choose first question
+	// function to initialize game area, choose first question, and start timer
 	function init() {
 		buildTimerElement();
 
@@ -148,7 +153,7 @@ function startGame() {
 
 			arr.forEach(function(choice) {
 				var listItem = $("<li>").text(choice);
-				attackClickListener(listItem);
+				attachClickListener(listItem);
 				$(list).append(listItem);
 			})
 
@@ -186,14 +191,16 @@ function startGame() {
 	// start the timer for the current question
 	function startTimer() {
 		// call the questionTimeUp function if time runs out
-		var questionTime = setTimeout(function(){
+		questionTime = setTimeout(function(){
 			questionTimeUp();
 		}, startTime * 1000);
 
 		var currentTime = startTime;
 
+		$("#countdown").text(`${currentTime} Seconds`);
+
 		// update the countdown display every second
-		var countdown = setInterval(function(){
+		countdown = setInterval(function(){
 			if(currentTime > 0){
 				currentTime -= 1;
 				$("#countdown").text(`${currentTime} Seconds`);
@@ -201,8 +208,15 @@ function startGame() {
 		}, 1000);
 	}
 
+	function clearTimers() {
+		clearTimeout(questionTime);
+		clearTimeout(countdown);
+	}
+
 	// check the clicked answer
 	function checkAnswer(el) {
+		clearTimers();
+
 		var choice = $(el).text();
 		var answer = currentQuestion.answer;
 
@@ -213,9 +227,23 @@ function startGame() {
 		}
 	}
 
+	function correctAnswer() {
+		console.log("correct");
+	}
+
+	function incorrectAnswer() {
+		console.log("incorrect");
+	}
+
+	function questionTimeUp() {
+		console.log("Time Up");
+	}
+
+
+
+
 }
 
-	// show first question and start the timer
 
 	// if the user answers correctly
 		// show that they answered correctly
