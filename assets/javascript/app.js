@@ -234,8 +234,8 @@ function startGame() {
 
 		// show that they answered correctly
 		var header = $("<div>").addClass("col-xs-12");
-		var winText = $("<h2>").text("Correct!");
-		myAppend(winText, header, playArea);
+		var correctEl = $("<h2>").text("Correct!");
+		myAppend(correctEl, header, playArea);
 
 		// increment number of correct answers
 		stats.correct += 1;
@@ -248,9 +248,25 @@ function startGame() {
 
 	function incorrectAnswer() {
 		// if they answer incorrectly
+		var playArea = $("#play-area-row");
+		playArea.html("");
+
 		// show the correct answer
+		var header = $("<div>").addClass("col-xs-12");
+		var wrongEl = $("<h2>").text("Wrong!");
+
+		var answer = $("<p>")
+		$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
+
+		myAppend(wrongEl, header, playArea);
+		$(playArea).append(answer);
+
 		// increment number of incorrect guesses
+		stats.incorrect += 1;
+
 		// after n seconds move to the next question
+		setTimeout(nextQuestion, 5 * 1000);
+		
 		console.log("incorrect");
 	}
 
