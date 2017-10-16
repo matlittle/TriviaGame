@@ -86,7 +86,7 @@ var stats = {
 
 // variables to hold starting time, and time between questions
 var startTime = 20;
-var waitTime = 5;
+var waitTime = 4.5;
 
 // object to hold current question
 var currentQuestion;

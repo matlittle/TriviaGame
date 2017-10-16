@@ -56,15 +56,19 @@ body {
 #question h4{
 	text-align: center;
 	font-size: 2.5em;
-	margin: 10px auto;
+	margin: 20px auto;
 	line-height: 1.5em;
 }
 
 #choices > div {
 	width: fit-content;
-	margin: auto;
-	margin-top: 10px;
+	margin: 20px auto;
+	line-height: 1.5em;
+}
+
+#choices > div > p {
 	font-size: 2em;
+	line-height: 1.5em;
 }
 
 #timer-row h4, #countdown, #question h4, #choices {
@@ -92,4 +96,28 @@ body {
 	max-height: 500px;
 }
 
+#stats-head {
+	text-align: center;
+	font-size: 2.5em;
+	margin: 50px auto 20px;
+	line-height: 1.5em;
+}
 
+#stat-list {
+	text-align: center;
+	font-size: 2em;
+	margin: 10px auto;
+	line-height: 1.5em;
+}
+
+#reset-btn {
+    margin: 30px auto 0;
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.5em
+}
+
+#reset-btn:hover {
+	border: none;
+}
