@@ -94,20 +94,63 @@ var currentQuestion;
 // timeout and interval variables
 var questionTime, countdown;
 
+$(document).ready(function() {
+	showStartPage();
+})
 
-showStartPage();
 
 // show initial starting screen with option to begin trivia game
 function showStartPage() {
+
 	var startDiv = $("<div>").addClass("row")
 	var startBtn = $("<h2>").attr("id", "start-btn").text("Start");
 
 	myAppend(startBtn, startDiv, contentDiv);
 
+	playAudioElement();
+
+	setTimeout(animateStartPage, 2 * 1000);
+
 	$(startBtn).click(function() {
 		$(contentDiv).html("");
 		startGame();
 	});
+
+
+	function playAudioElement() {
+
+		var audioEl = document.getElementById("start-audio");
+		
+		audioEl.volume = 1;
+		audioEl.currentTime = 0;
+		audioEl.play();
+
+		setTimeout(function() {
+			$(audioEl).animate({volume: "0"}, 5 * 1000);
+			setTimeout(function() {audioEl.pause();}, 5 * 1000);
+		}, 10 * 1000);
+	}
+
+
+	function animateStartPage() {
+		$("#background").fadeTo(3 * 1000, "0.4");
+
+		$("#main-header").animate({
+			opacity: "0.5",
+			top: "0"
+		}, 2 * 1000);
+		$("#main-header").animate({
+			opacity: "1"
+		}, 1 * 1000);
+
+		setTimeout(function() {
+			$("#start-btn").animate({
+				opacity: "1",
+				top: "0"
+			}, 2 * 1000);
+		}, 1 * 1000);
+		
+	}
 }
 
 // once user clicks start, initialize the game
