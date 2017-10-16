@@ -19,7 +19,7 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	opacity: 0.5;
+	opacity: 0.3;
 }
 
 #wrapper {
@@ -91,7 +91,7 @@ body {
 
 #correct-img {
 	display: block;
-	margin: 30px auto 0;
+	margin: 10px auto 0;
 	max-width: 500px;
 	max-height: 500px;
 }

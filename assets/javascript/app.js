@@ -14,7 +14,7 @@ var trivia = {
 		answer: "An Eagle",
 		choices: ["A Badger","An Eagle","A Lion","A Snake"],
 		asked: false,
-		image: "ravenclaw.jpg"
+		image: "ravenclaw.png"
 	},
 	three: {
 		question: "Who destroyed the last remaining Horcrux?",
