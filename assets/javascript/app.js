@@ -6,61 +6,71 @@ var trivia = {
 		question: "What is the name of Dumbledore's phoenix?",
 		answer: "Fawkes",
 		choices: ["Firenze","Fawkes","Fluffy","Hermes"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	two: {
 		question: "What is the symbol for Ravenclaw house?",
 		answer: "An Eagle",
 		choices: ["A Badger","An Eagle","A Lion","A Snake"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	three: {
 		question: "Who destroyed the last remaining Horcrux?",
 		answer: "Neville Longbottom",
 		choices: ["Ginny Weasley","Neville Longbottom","Hermoine Granger","Harry Potter"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	four: {
 		question: "What does O.W.L. stand for?",
 		answer: "Ordinary Wizarding Level",
 		choices: ["Ordinary Wizarding Level","Official Wizarding License","Organized Wizard Learning","Outstanding Wizard Lesson"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	five: {
 		question: "What does Professor Lupin give Harry to eat after his encounter with a Death Eater?",
 		answer: "Chocolate",
 		choices: ["Chocolate","Sherbet","Ice Cream","Bertie Bott's Every Flavored Beans"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	six: {
 		question: "Who is Ginny's first boyfriend?",
 		answer: "Michael Corner",
 		choices: ["Dean Thomas","Michael Corner","Zacharias Smith","Harry Potter"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	seven: {
 		question: "What do Ron and Hermoine use to destroy Helga Hufflepuff's cup?",
 		answer: "A Basilisk Fang",
 		choices: ["The Sword of Gryffindor","Fiendfyre","The Killing Curse","A Basilisk Fang"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	eight: {
 		question: "Where does Harry sleep at the Dursley's before he moves to Dudley's second bedroom?",
 		answer: "The cupboard under the stairs",
 		choices: ["The cupboard under the stairs","The cellar","The garden shed","The attic"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	nine: {
 		question: "What body part does Ron leave behind in his Apparition test?",
 		answer: "Half an eyebrow",
 		choices: ["Half an eyebrow","His left foot","His right hand","His nose"],
-		asked: false 
+		asked: false,
+		image:  
 	},
 	ten: {
 		question: "How did Harry's parents die according to the Dursleys?",
 		answer: "In a car crash",
 		choices: ["In a car crash","They were murdered","Lost at sea","From an illness"],
-		asked: false 
+		asked: false,
+		image:  
 	} 
 }
 
@@ -74,7 +84,7 @@ var stats = {
 }
 
 // variables to hold starting time, and time between questions
-var startTime = 15;
+var startTime = 20;
 var waitTime = 4;
 
 // object to hold current question
@@ -147,13 +157,13 @@ function buildQuestionElement(obj) {
 
 	// build choices list from question choices array
 	function buildChoicesList(arr) {
-		var list = $("<ul>");
+		var list = $("<div>");
 
 		// randomize choices into randomOrder arr
 		var randomOrder = randomizeArr(arr);
 
 		randomOrder.forEach(function(choice) {
-			var listItem = $("<li>").text(choice);
+			var listItem = $("<p>").text(choice);
 			attachClickListener(listItem);
 			$(list).append(listItem);
 		})
@@ -263,7 +273,7 @@ function correctAnswer() {
 
 	// show that they answered correctly
 	var header = $("<div>").addClass("col-xs-12");
-	var correctEl = $("<h2>").text("Correct!");
+	var correctEl = $("<h2>").attr("id", "prompt-text").text("Correct!");
 	myAppend(correctEl, header, playArea);
 
 	// increment number of correct answers
@@ -283,9 +293,9 @@ function incorrectAnswer() {
 
 	// show the correct answer
 	var header = $("<div>").addClass("col-xs-12");
-	var wrongEl = $("<h2>").text("Wrong!");
+	var wrongEl = $("<h2>").attr("id", "prompt-text").text("Wrong!");
 
-	var answer = $("<p>")
+	var answer = $("<p>").attr("id", "shown-answer");
 	$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
 
 	myAppend(wrongEl, header, playArea);
@@ -308,9 +318,9 @@ function questionTimeUp() {
 
 	// show the correct answer
 	var header = $("<div>").addClass("col-xs-12");
-	var timeUpEl = $("<h2>").text("Time's Up!");
+	var timeUpEl = $("<h2>").attr("id", "prompt-text").text("Time's Up!");
 
-	var answer = $("<p>")
+	var answer = $("<p>").attr("id", "shown-answer");
 	$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
 
 	myAppend(timeUpEl, header, playArea);

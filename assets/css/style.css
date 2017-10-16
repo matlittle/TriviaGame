@@ -1,0 +1,87 @@
+* {
+	font-family: 'Give You Glory', cursive;
+	color: #ebbc44;
+}
+
+body {
+	background: black;
+}
+
+#background {
+	background-image: url("../images/background.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: none;
+	background-position: center center; 
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0.5;
+}
+
+#wrapper {
+	position: relative;
+	z-index: 1;
+}
+
+#main-header {
+	margin: auto;
+	display: block;
+    margin-top: 20px;
+}
+
+#start-btn {
+	text-align: center;
+	margin-top: 15%;
+	font-size: 4em;
+	font-weight: 900;
+}
+
+
+#timer-row h4{
+	text-align: center;
+	font-size: 3em;
+	margin: 30px auto 20px;
+}
+
+#countdown {
+	width: 220px;
+	text-align: right;
+	display: inline-block;
+}
+
+#question h4{
+	text-align: center;
+	font-size: 2.5em;
+	margin: 10px auto;
+	line-height: 1.5em;
+}
+
+#choices > div {
+	width: fit-content;
+	margin: auto;
+	margin-top: 10px;
+	font-size: 2em;
+}
+
+#timer-row h4, #countdown, #question h4, #choices {
+	font-weight: 500;
+}
+
+#prompt-text {
+	text-align: center;
+	font-size: 2.5em;
+	margin: 10px auto;
+	line-height: 1.5em;
+}
+
+#shown-answer {
+	text-align: center;
+	font-size: 2em;
+	margin: 10px auto;
+	line-height: 1.5em;
+}
+
+
