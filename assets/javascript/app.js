@@ -85,7 +85,7 @@ var stats = {
 }
 
 // variables to hold starting time, and time between questions
-var startTime = 20;
+var startTime = 1000;
 var waitTime = 4.5;
 
 // object to hold current question
@@ -350,8 +350,6 @@ function questionTimeUp() {
 
 	// after n seconds move to the next question
 	setTimeout(nextQuestion, waitTime * 1000);
-
-	console.log("Time Up");
 }
 
 // display the answer image and if they were correct or incorrect
