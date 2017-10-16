@@ -3,65 +3,65 @@
 // object to hold questions, choices, and correct answer
 var trivia = {
 	one: {
-		question: "A",
-		answer: "A",
-		choices: ["A","B","C","D"],
+		question: "What is the name of Dumbledore's phoenix?",
+		answer: "Fawkes",
+		choices: ["Firenze","Fawkes","Fluffy","Hermes"],
 		asked: false 
 	},
 	two: {
-		question: "B",
-		answer: "B",
-		choices: ["A","B","C","D"],
+		question: "What is the symbol for Ravenclaw house?",
+		answer: "An Eagle",
+		choices: ["A Badger","An Eagle","A Lion","A Snake"],
 		asked: false 
-	}
-/*	three: {
-		question: "C",
-		answer: "C",
-		choices: ["A","B","C","D"],
+	},
+	three: {
+		question: "Who destroyed the last remaining Horcrux?",
+		answer: "Neville Longbottom",
+		choices: ["Ginny Weasley","Neville Longbottom","Hermoine Granger","Harry Potter"],
 		asked: false 
 	},
 	four: {
-		question: "D",
-		answer: "D",
-		choices: ["A","B","C","D"],
+		question: "What does O.W.L. stand for?",
+		answer: "Ordinary Wizarding Level",
+		choices: ["Ordinary Wizarding Level","Official Wizarding License","Organized Wizard Learning","Outstanding Wizard Lesson"],
 		asked: false 
 	},
 	five: {
-		question: "A",
-		answer: "A",
-		choices: ["A","B","C","D"],
+		question: "What does Professor Lupin give Harry to eat after his encounter with a Death Eater?",
+		answer: "Chocolate",
+		choices: ["Chocolate","Sherbet","Ice Cream","Bertie Bott's Every Flavored Beans"],
 		asked: false 
 	},
 	six: {
-		question: "B",
-		answer: "B",
-		choices: ["A","B","C","D"],
+		question: "Who is Ginny's first boyfriend?",
+		answer: "Michael Corner",
+		choices: ["Dean Thomas","Michael Corner","Zacharias Smith","Harry Potter"],
 		asked: false 
 	},
 	seven: {
-		question: "C",
-		answer: "C",
-		choices: ["A","B","C","D"],
+		question: "What do Ron and Hermoine use to destroy Helga Hufflepuff's cup?",
+		answer: "A Basilisk Fang",
+		choices: ["The Sword of Gryffindor","Fiendfyre","The Killing Curse","A Basilisk Fang"],
 		asked: false 
 	},
 	eight: {
-		question: "D",
-		answer: "D",
-		choices: ["A","B","C","D"],
+		question: "Where does Harry sleep at the Dursley's before he moves to Dudley's second bedroom?",
+		answer: "The cupboard under the stairs",
+		choices: ["The cupboard under the stairs","The cellar","The garden shed","The attic"],
 		asked: false 
 	},
 	nine: {
-		question: "A",
-		answer: "A",
-		choices: ["A","B","C","D"],
+		question: "What body part does Ron leave behind in his Apparition test?",
+		answer: "Half an eyebrow",
+		choices: ["Half an eyebrow","His left foot","His right hand","His nose"],
 		asked: false 
 	},
 	ten: {
-		question: "B",
-		answer: "B",
-		choices: ["A","B","C","D"],
+		question: "How did Harry's parents die according to the Dursleys?",
+		answer: "In a car crash",
+		choices: ["In a car crash","They were murdered","Lost at sea","From an illness"],
 		asked: false 
-	} */
+	} 
 }
 
 var contentDiv = $("#content");
@@ -170,7 +170,7 @@ function buildQuestionElement(obj) {
 					previous.push(randNum);
 					return randNum;
 				} else {
-					return randNum();
+					return randUniqueNum();
 				}
 			}
 
