@@ -7,70 +7,70 @@ var trivia = {
 		answer: "Fawkes",
 		choices: ["Firenze","Fawkes","Fluffy","Hermes"],
 		asked: false,
-		image:  
+		image: "fawkes.jpg"
 	},
 	two: {
 		question: "What is the symbol for Ravenclaw house?",
 		answer: "An Eagle",
 		choices: ["A Badger","An Eagle","A Lion","A Snake"],
 		asked: false,
-		image:  
+		image: "ravenclaw.jpg"
 	},
 	three: {
 		question: "Who destroyed the last remaining Horcrux?",
 		answer: "Neville Longbottom",
 		choices: ["Ginny Weasley","Neville Longbottom","Hermoine Granger","Harry Potter"],
 		asked: false,
-		image:  
+		image: "neville.png"
 	},
 	four: {
 		question: "What does O.W.L. stand for?",
 		answer: "Ordinary Wizarding Level",
 		choices: ["Ordinary Wizarding Level","Official Wizarding License","Organized Wizard Learning","Outstanding Wizard Lesson"],
 		asked: false,
-		image:  
+		image: "owl.jpg"
 	},
 	five: {
 		question: "What does Professor Lupin give Harry to eat after his encounter with a Death Eater?",
 		answer: "Chocolate",
 		choices: ["Chocolate","Sherbet","Ice Cream","Bertie Bott's Every Flavored Beans"],
 		asked: false,
-		image:  
+		image: "chocolate.gif"
 	},
 	six: {
 		question: "Who is Ginny's first boyfriend?",
 		answer: "Michael Corner",
 		choices: ["Dean Thomas","Michael Corner","Zacharias Smith","Harry Potter"],
 		asked: false,
-		image:  
+		image: "michael.jpg"
 	},
 	seven: {
 		question: "What do Ron and Hermoine use to destroy Helga Hufflepuff's cup?",
 		answer: "A Basilisk Fang",
 		choices: ["The Sword of Gryffindor","Fiendfyre","The Killing Curse","A Basilisk Fang"],
 		asked: false,
-		image:  
+		image: "fang.jpg"
 	},
 	eight: {
 		question: "Where does Harry sleep at the Dursley's before he moves to Dudley's second bedroom?",
 		answer: "The cupboard under the stairs",
 		choices: ["The cupboard under the stairs","The cellar","The garden shed","The attic"],
 		asked: false,
-		image:  
+		image: "cupboard.jpg"
 	},
 	nine: {
-		question: "What body part does Ron leave behind in his Apparition test?",
-		answer: "Half an eyebrow",
-		choices: ["Half an eyebrow","His left foot","His right hand","His nose"],
+		question: "When is Harry Potter's birthday?",
+		answer: "July 31st",
+		choices: ["July 31st","July 30th","June 30th","August 30th"],
 		asked: false,
-		image:  
+		image: "birthday.png"
 	},
 	ten: {
-		question: "How did Harry's parents die according to the Dursleys?",
-		answer: "In a car crash",
-		choices: ["In a car crash","They were murdered","Lost at sea","From an illness"],
+		question: "What is Dumbledore's full name?",
+		answer: "Albus Percival Wulfric Brian Dumbledore",
+		choices: ["Albus Percival Wulfric Brian Dumbledore","Albus Wulfric Percival Brian Dumbledore","Albus Brian Percival Wulfric Dumbledore","Albus Wulfric Brian Percival Dumbledore"],
 		asked: false,
-		image:  
+		image: "dumbledore.jpg"
 	} 
 }
 
