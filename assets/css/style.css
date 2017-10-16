@@ -1,6 +1,7 @@
 * {
 	font-family: 'Give You Glory', cursive;
 	color: #ebbc44;
+	letter-spacing: 0.1em;
 }
 
 body {
@@ -43,11 +44,11 @@ body {
 #timer-row h4{
 	text-align: center;
 	font-size: 3em;
-	margin: 30px auto 20px;
+	margin: 40px auto 20px;
 }
 
 #countdown {
-	width: 220px;
+	width: 250px;
 	text-align: right;
 	display: inline-block;
 }
@@ -82,6 +83,13 @@ body {
 	font-size: 2em;
 	margin: 10px auto;
 	line-height: 1.5em;
+}
+
+#correct-img {
+	display: block;
+	margin: 30px auto 0;
+	max-width: 500px;
+	max-height: 500px;
 }
 
 

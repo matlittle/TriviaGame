@@ -75,6 +75,7 @@ var trivia = {
 }
 
 var contentDiv = $("#content");
+var playArea;
 
 // object to hold stats (correct/incorrect/skipped)
 var stats = {
@@ -85,7 +86,7 @@ var stats = {
 
 // variables to hold starting time, and time between questions
 var startTime = 20;
-var waitTime = 4;
+var waitTime = 5;
 
 // object to hold current question
 var currentQuestion;
@@ -135,14 +136,12 @@ function buildTimerElement() {
 
 // build and append initial timer element
 function buildPlayArea() {
-	var playArea = $("<div>").addClass("row").attr("id", "play-area-row");
+	playArea = $("<div>").addClass("row").attr("id", "play-area-row");
 	$(contentDiv).append(playArea);
 }
 
 // build question element from given question object
 function buildQuestionElement(obj) {
-	var playArea = $("#play-area-row");
-
 	var question = $("<div>").addClass("col-xs-12").attr("id", "question");
 	var questionText = $("<h4>").text(obj.question);
 
@@ -268,63 +267,40 @@ function checkAnswer(el) {
 // called when answer is correct
 function correctAnswer() {
 	// if the user answers correctly
-	var playArea = $("#play-area-row");
-	playArea.html("");
+	clearPlayArea();
 
 	// show that they answered correctly
-	var header = $("<div>").addClass("col-xs-12");
-	var correctEl = $("<h2>").attr("id", "prompt-text").text("Correct!");
-	myAppend(correctEl, header, playArea);
+	showAnswer(true, "Correct!");
 
 	// increment number of correct answers
 	stats.correct += 1;
 
 	// after n seconds move to the next question
 	setTimeout(nextQuestion, waitTime * 1000);
-
-	console.log("correct");
 }
 
 // called when answer is incorrect
 function incorrectAnswer() {
 	// if they answer incorrectly
-	var playArea = $("#play-area-row");
-	playArea.html("");
+	clearPlayArea();
 
 	// show the correct answer
-	var header = $("<div>").addClass("col-xs-12");
-	var wrongEl = $("<h2>").attr("id", "prompt-text").text("Wrong!");
-
-	var answer = $("<p>").attr("id", "shown-answer");
-	$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
-
-	myAppend(wrongEl, header, playArea);
-	$(playArea).append(answer);
+	showAnswer(false, "Wrong!");
 
 	// increment number of incorrect guesses
 	stats.incorrect += 1;
 
 	// after n seconds move to the next question
 	setTimeout(nextQuestion, waitTime * 1000);
-
-	console.log("incorrect");
 }
 
 // called when the time runs out
 function questionTimeUp() {
 	// if the time runs out
-	var playArea = $("#play-area-row");
-	playArea.html("");
+	clearPlayArea();
 
 	// show the correct answer
-	var header = $("<div>").addClass("col-xs-12");
-	var timeUpEl = $("<h2>").attr("id", "prompt-text").text("Time's Up!");
-
-	var answer = $("<p>").attr("id", "shown-answer");
-	$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
-
-	myAppend(timeUpEl, header, playArea);
-	$(playArea).append(answer);
+	showAnswer(false, "Time's Up!")
 
 	// increment the number of skipped questions
 	stats.unanswered += 1;
@@ -333,6 +309,24 @@ function questionTimeUp() {
 	setTimeout(nextQuestion, waitTime * 1000);
 
 	console.log("Time Up");
+}
+
+// display the answer image and if they were correct or incorrect
+function showAnswer(bool, str) {
+	// show correct, incorrect or time's up based on passed string
+	var textEl = $("<h2>").attr("id", "prompt-text").text(str);
+	$(playArea).append(textEl);
+
+	if(!bool) {
+		var answer = $("<p>").attr("id", "shown-answer");
+		$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
+		$(playArea).append(answer);
+	}
+
+	var img = $("<img>").attr("id", "correct-img");
+	img.attr("src", `assets/images/${currentQuestion.image}`);
+
+	$(playArea).append(img);
 }
 
 // choose the next question and start timer
@@ -351,8 +345,6 @@ function nextQuestion() {
 
 // after all questions have been asked, end game and show stats
 function gameOver() {
-	var playArea = $("#play-area-row");
-
 	clearPlayArea();
 
 	$("#timer-row").remove();
@@ -413,7 +405,7 @@ function resetGame() {
 
 // clear the play area element
 function clearPlayArea() {
-	$("#play-area-row").html("");
+	$(playArea).html("");
 }
 
 // Function to append elements together
