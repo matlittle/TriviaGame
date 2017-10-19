@@ -81,6 +81,16 @@ body {
 	font-weight: 500;
 }
 
+#play-area-row {
+	position: relative;
+}
+
+.main-answer {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 #prompt-text {
 	text-align: center;
 	font-size: 2.5em;

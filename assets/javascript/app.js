@@ -85,7 +85,7 @@ var stats = {
 }
 
 // variables to hold starting time, and time between questions
-var startTime = 15;
+var startTime = 99;
 var waitTime = 4.5;
 
 // object to hold current question
@@ -293,6 +293,8 @@ function clearTimers() {
 	clearTimeout(countdown);
 }
 
+
+
 // check the clicked answer
 function checkAnswer(el) {
 	clearTimers();
@@ -300,17 +302,19 @@ function checkAnswer(el) {
 	var choice = $(el).text();
 	var answer = currentQuestion.answer;
 
+
 	if(choice === answer) {
 		correctAnswer();
 	} else if(choice !== answer) {
 		incorrectAnswer();
 	}
+	
 }
 
 // called when answer is correct
 function correctAnswer() {
 	// if the user answers correctly
-	clearPlayArea();
+	//clearPlayArea();
 
 	// show that they answered correctly
 	showAnswer(true, "Correct!");
@@ -325,7 +329,7 @@ function correctAnswer() {
 // called when answer is incorrect
 function incorrectAnswer() {
 	// if they answer incorrectly
-	clearPlayArea();
+	//clearPlayArea();
 
 	// show the correct answer
 	showAnswer(false, "Wrong!");
@@ -354,20 +358,58 @@ function questionTimeUp() {
 
 // display the answer image and if they were correct or incorrect
 function showAnswer(bool, str) {
-	// show correct, incorrect or time's up based on passed string
-	var textEl = $("<h2>").attr("id", "prompt-text").text(str);
-	$(playArea).append(textEl);
 
-	if(!bool) {
-		var answer = $("<p>").attr("id", "shown-answer");
-		$(answer).text(`The correct answer was: ${currentQuestion.answer}`);
-		$(playArea).append(answer);
+	fadeWrongAnswers();
+
+	buildAnswerElement();
+
+	moveCorrect();
+
+	function fadeWrongAnswers() {
+		var currentChoices = $("#choices p");
+
+		for (var i = 0; i < currentChoices.length; i++) {
+			if($(currentChoices[i]).text() !== currentQuestion.answer) {
+				$(currentChoices[i]).addClass("incorrect");
+			} else {
+				$(currentChoices[i]).addClass("correct");
+			}
+		}	
+
+		$(".incorrect").fadeTo(1000, 0);
 	}
 
-	var img = $("<img>").attr("id", "correct-img");
-	img.attr("src", `assets/images/${currentQuestion.image}`);
+	function buildAnswerElement() {
+		// show correct, incorrect or time's up based on passed string
+		var answerEl = $("<div>").addClass("main-answer").css("opacity", "0");
 
-	$(playArea).append(img);
+		var headEl = $("<h2>").attr("id", "prompt-head").text(str);
+		$(answerEl).append(headEl);
+
+		var textEl = $("<p>").attr("id", "prompt-text");
+		var answer = $("<span>").attr("id", "shown-answer");
+		$(answer).text(currentQuestion.answer);
+		
+		if(!bool){
+			$(textEl).text("The correct answer was: ")
+		}
+
+		myAppend(answer, textEl, answerEl);
+
+		var img = $("<img>").attr("id", "correct-img");
+		img.attr("src", `assets/images/${currentQuestion.image}`);
+		$(answerEl).append(img);
+
+		$(playArea).append(answerEl);
+	}
+
+	function moveCorrect(){
+		var oldOffset = $(".correct").offset();
+		var newOffset = $("#shown-answer").offset();
+
+		console.log(oldOffset);
+		console.log(newOffset);
+	}
 }
 
 // choose the next question and start timer
@@ -446,6 +488,7 @@ function resetGame() {
 
 // clear the play area element
 function clearPlayArea() {
+	//
 	$(playArea).html("");
 }
 
