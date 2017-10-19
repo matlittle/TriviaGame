@@ -85,24 +85,24 @@ body {
 	position: relative;
 }
 
+.main-question {
+	position: absolute;
+	text-align: center;
+	top: 0;
+	left: 0;
+}
+
 .main-answer {
 	position: absolute;
+	text-align: center;
 	top: 0;
 	left: 0;
 }
 
 #prompt-text {
 	text-align: center;
-	font-size: 2.5em;
-	margin: 10px auto;
-	line-height: 1.5em;
-}
-
-#shown-answer {
-	text-align: center;
 	font-size: 2em;
 	margin: 10px auto;
-	line-height: 1.5em;
 }
 
 #correct-img {

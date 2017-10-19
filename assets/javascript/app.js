@@ -86,7 +86,7 @@ var stats = {
 
 // variables to hold starting time, and time between questions
 var startTime = 99;
-var waitTime = 10;
+var waitTime = 60;
 
 // object to hold current question
 var currentQuestion;
@@ -185,6 +185,8 @@ function buildPlayArea() {
 
 // build question element from given question object
 function buildQuestionElement(obj) {
+	var mainQuestion = $("<div>").addClass("main-question");
+
 	var question = $("<div>").addClass("col-xs-12").attr("id", "question");
 	var questionText = $("<h4>").text(obj.question);
 
@@ -194,8 +196,10 @@ function buildQuestionElement(obj) {
 	// set asked to true for current question
 	obj.asked = true;
 
-	myAppend(questionText, question, playArea);
-	myAppend(choicesList, choices, playArea);
+	myAppend(questionText, question, mainQuestion);
+	myAppend(choicesList, choices, mainQuestion);
+
+	$(playArea).append(mainQuestion);
 
 	// build choices list from question choices array
 	function buildChoicesList(arr) {
@@ -384,27 +388,31 @@ function showAnswer(bool, str) {
 
 		$("#shown-answer").offset(oldOffset);
 
-		$("#shown-answer").css("opacity", "1");
-		$(".correct").css("visibility", "hidden");
-
 		$("#shown-answer").animate({
 			"top": newOffset.top,
 			"left": newOffset.left
-		}, 0.5 * 1000);
-
-
+		}, 1 * 1000);
 
 		console.log(oldOffset);
 		console.log(newOffset);
 
+
+		function fadeOutQuestion() {
+			$("#question").fadeTo(500, 0)
+		}
+
+		function fadeInPrompt() {
+
+		}
+
 		function buildAnswerElement() {
 			// show correct, incorrect or time's up based on passed string
-			var answerEl = $("<div>").addClass("main-answer").css("opacity", "0");
+			var answerEl = $("<div>").addClass("main-answer")
 
-			var headEl = $("<h2>").attr("id", "prompt-head").text(str);
+			var headEl = $("<h2>").attr("id", "prompt-head").text(str).css("opacity", "0");
 			$(answerEl).append(headEl);
 
-			var textEl = $("<p>").attr("id", "prompt-text");
+			var textEl = $("<p>").attr("id", "prompt-text").css("opacity", "0");
 			var answer = $("<span>").attr("id", "shown-answer");
 			$(answer).text(currentQuestion.answer);
 
@@ -414,7 +422,7 @@ function showAnswer(bool, str) {
 
 			myAppend(answer, textEl, answerEl);
 
-			var img = $("<img>").attr("id", "correct-img");
+			var img = $("<img>").attr("id", "correct-img").css("opacity", "0");
 			img.attr("src", `assets/images/${currentQuestion.image}`);
 			$(answerEl).append(img);
 
