@@ -86,7 +86,7 @@ var stats = {
 
 // variables to hold starting time, and time between questions
 var startTime = 99;
-var waitTime = 4.5;
+var waitTime = 10;
 
 // object to hold current question
 var currentQuestion;
@@ -293,8 +293,6 @@ function clearTimers() {
 	clearTimeout(countdown);
 }
 
-
-
 // check the clicked answer
 function checkAnswer(el) {
 	clearTimers();
@@ -308,7 +306,6 @@ function checkAnswer(el) {
 	} else if(choice !== answer) {
 		incorrectAnswer();
 	}
-	
 }
 
 // called when answer is correct
@@ -361,9 +358,6 @@ function showAnswer(bool, str) {
 
 	fadeWrongAnswers();
 
-	buildAnswerElement();
-
-	moveCorrect();
 
 	function fadeWrongAnswers() {
 		var currentChoices = $("#choices p");
@@ -377,38 +371,55 @@ function showAnswer(bool, str) {
 		}	
 
 		$(".incorrect").fadeTo(1000, 0);
+		setTimeout(moveCorrect, 1000);
 	}
 
-	function buildAnswerElement() {
-		// show correct, incorrect or time's up based on passed string
-		var answerEl = $("<div>").addClass("main-answer").css("opacity", "0");
-
-		var headEl = $("<h2>").attr("id", "prompt-head").text(str);
-		$(answerEl).append(headEl);
-
-		var textEl = $("<p>").attr("id", "prompt-text");
-		var answer = $("<span>").attr("id", "shown-answer");
-		$(answer).text(currentQuestion.answer);
-		
-		if(!bool){
-			$(textEl).text("The correct answer was: ")
-		}
-
-		myAppend(answer, textEl, answerEl);
-
-		var img = $("<img>").attr("id", "correct-img");
-		img.attr("src", `assets/images/${currentQuestion.image}`);
-		$(answerEl).append(img);
-
-		$(playArea).append(answerEl);
-	}
+	
 
 	function moveCorrect(){
+		buildAnswerElement();
+
 		var oldOffset = $(".correct").offset();
 		var newOffset = $("#shown-answer").offset();
 
+		$("#shown-answer").offset(oldOffset);
+
+		$("#shown-answer").css("opacity", "1");
+		$(".correct").css("visibility", "hidden");
+
+		$("#shown-answer").animate({
+			"top": newOffset.top,
+			"left": newOffset.left
+		}, 0.5 * 1000);
+
+
+
 		console.log(oldOffset);
 		console.log(newOffset);
+
+		function buildAnswerElement() {
+			// show correct, incorrect or time's up based on passed string
+			var answerEl = $("<div>").addClass("main-answer").css("opacity", "0");
+
+			var headEl = $("<h2>").attr("id", "prompt-head").text(str);
+			$(answerEl).append(headEl);
+
+			var textEl = $("<p>").attr("id", "prompt-text");
+			var answer = $("<span>").attr("id", "shown-answer");
+			$(answer).text(currentQuestion.answer);
+
+			if(!bool){
+				$(textEl).text("The correct answer was: ")
+			}
+
+			myAppend(answer, textEl, answerEl);
+
+			var img = $("<img>").attr("id", "correct-img");
+			img.attr("src", `assets/images/${currentQuestion.image}`);
+			$(answerEl).append(img);
+
+			$(playArea).append(answerEl);
+		}
 	}
 }
 
