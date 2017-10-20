@@ -30,20 +30,24 @@ body {
 #main-header {
 	margin: auto;
 	display: block;
-    margin-top: 20px;
-    opacity: 0;
-    position: relative;
-    top: -100px;
+	margin-top: 20px;
+	opacity: 0;
+	position: relative;
+	top: -100px;
 }
 
 #start-btn {
 	text-align: center;
+	margin: auto;
 	margin-top: 15%;
 	font-size: 4em;
 	font-weight: 900;
 	position: relative;
 	top: -200px;
 	opacity: 0;
+	cursor: pointer;
+	cursor: hand;
+	width: fit-content;
 }
 
 
@@ -75,6 +79,8 @@ body {
 #choices > div > p {
 	font-size: 2em;
 	line-height: 1.5em;
+	cursor: pointer; 
+	cursor: hand;
 }
 
 #timer-row h4, #countdown, #question h4, #choices {
@@ -90,6 +96,7 @@ body {
 	text-align: center;
 	top: 0;
 	left: 0;
+	width: 100%;
 }
 
 .main-answer {
@@ -97,12 +104,30 @@ body {
 	text-align: center;
 	top: 0;
 	left: 0;
+	width: 100%;
 }
 
-#prompt-text {
-	text-align: center;
+#prompt-head {
+	font-size: 2.5em;
+	margin: 20px auto;
+	line-height: 1.5em;
+}
+
+.correct {
 	font-size: 2em;
 	margin: 10px auto;
+	line-height: 1.5em;
+	cursor: pointer;
+	cursor: hand;
+}
+
+#shown-answer {
+	font-weight: 500;
+	font-size: 2em;
+	margin: 10px auto 20px;
+	line-height: 1.5em;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #correct-img {
@@ -127,13 +152,18 @@ body {
 }
 
 #reset-btn {
-    margin: 30px auto 0;
-    display: block;
-    background: none;
-    border: none;
-    font-size: 1.5em
+	margin: 30px auto 0;
+	display: block;
+	background: none;
+	border: none;
+	font-size: 1.5em;
+	cursor: pointer;
+	cursor: hand;
 }
 
-#reset-btn:hover {
+button:hover, button:active {
 	border: none;
+	outline: 0;
+	outline-style:none;
+	outline-width:0; 
 }

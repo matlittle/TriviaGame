@@ -85,8 +85,8 @@ var stats = {
 }
 
 // variables to hold starting time, and time between questions
-var startTime = 99;
-var waitTime = 60;
+var startTime = 15;
+var waitTime = 6;
 
 // object to hold current question
 var currentQuestion;
@@ -112,8 +112,13 @@ function showStartPage() {
 	setTimeout(animateStartPage, 2 * 1000);
 
 	$(startBtn).click(function() {
-		$(contentDiv).html("");
-		startGame();
+		$(startBtn).off("click");
+		$(startBtn).fadeTo(1 * 1000, 0);
+		setTimeout(function() {
+			$(contentDiv).html("");
+			startGame();
+		}, 1.2 * 1000);
+			
 	});
 
 
@@ -315,10 +320,8 @@ function checkAnswer(el) {
 // called when answer is correct
 function correctAnswer() {
 	// if the user answers correctly
-	//clearPlayArea();
-
 	// show that they answered correctly
-	showAnswer(true, "Correct!");
+	showAnswer("Correct!");
 
 	// increment number of correct answers
 	stats.correct += 1;
@@ -330,10 +333,8 @@ function correctAnswer() {
 // called when answer is incorrect
 function incorrectAnswer() {
 	// if they answer incorrectly
-	//clearPlayArea();
-
 	// show the correct answer
-	showAnswer(false, "Wrong!");
+	showAnswer("Wrong!");
 
 	// increment number of incorrect guesses
 	stats.incorrect += 1;
@@ -344,11 +345,8 @@ function incorrectAnswer() {
 
 // called when the time runs out
 function questionTimeUp() {
-	// if the time runs out
-	clearPlayArea();
-
 	// show the correct answer
-	showAnswer(false, "Time's Up!")
+	showAnswer("Time's Up!")
 
 	// increment the number of skipped questions
 	stats.unanswered += 1;
@@ -358,10 +356,9 @@ function questionTimeUp() {
 }
 
 // display the answer image and if they were correct or incorrect
-function showAnswer(bool, str) {
+function showAnswer(str) {
 
 	fadeWrongAnswers();
-
 
 	function fadeWrongAnswers() {
 		var currentChoices = $("#choices p");
@@ -374,53 +371,60 @@ function showAnswer(bool, str) {
 			}
 		}	
 
-		$(".incorrect").fadeTo(1000, 0);
-		setTimeout(moveCorrect, 1000);
+		$(".incorrect").fadeTo(1 * 1000, 0);
+		setTimeout(moveCorrect, 0.5 * 1000);
 	}
-
-	
 
 	function moveCorrect(){
 		buildAnswerElement();
 
 		var oldOffset = $(".correct").offset();
-		var newOffset = $("#shown-answer").offset();
 
-		$("#shown-answer").offset(oldOffset);
+		$("#shown-answer").offset({top: oldOffset.top});
 
-		$("#shown-answer").animate({
-			"top": newOffset.top,
-			"left": newOffset.left
-		}, 1 * 1000);
-
-		console.log(oldOffset);
-		console.log(newOffset);
+		$("#shown-answer").css("opacity", 1);
+		$(".correct").css("opacity", 0);
 
 
-		function fadeOutQuestion() {
-			$("#question").fadeTo(500, 0)
+		setTimeout(animateMove, 0.2 * 1000);
+		
+
+		function animateMove() {
+			fadeOutQuestion();
+			fadeInPrompt();
+
+			setTimeout(fadeInImg, 0.5 * 1000);
+
+			$("#shown-answer").animate({
+				"top": 0
+			}, 1 * 1000);
+
+			function fadeOutQuestion() {
+				$("#question").fadeTo(500, 0)
+			}
+
+			function fadeInPrompt() {
+				$("#prompt-head").fadeTo(1000, 1);
+			}
+
+			function fadeInImg() {
+				$("#correct-img").fadeTo(500, 1);
+			}
 		}
 
-		function fadeInPrompt() {
-
-		}
+		
 
 		function buildAnswerElement() {
 			// show correct, incorrect or time's up based on passed string
 			var answerEl = $("<div>").addClass("main-answer")
 
-			var headEl = $("<h2>").attr("id", "prompt-head").text(str).css("opacity", "0");
+			var headEl = $("<h2>").attr("id", "prompt-head").text(str);
+			$(headEl).css("opacity", "0");
 			$(answerEl).append(headEl);
 
-			var textEl = $("<p>").attr("id", "prompt-text").css("opacity", "0");
-			var answer = $("<span>").attr("id", "shown-answer");
+			var answer = $("<p>").attr("id", "shown-answer").css("opacity", "0");
 			$(answer).text(currentQuestion.answer);
-
-			if(!bool){
-				$(textEl).text("The correct answer was: ")
-			}
-
-			myAppend(answer, textEl, answerEl);
+			$(answerEl).append(answer);
 
 			var img = $("<img>").attr("id", "correct-img").css("opacity", "0");
 			img.attr("src", `assets/images/${currentQuestion.image}`);
@@ -488,6 +492,7 @@ function gameOver() {
 		myAppend(resetBtn, btnDiv, playArea);
 
 		$(resetBtn).click(function(){
+			$(resetBtn).off("click");
 			resetGame();
 		})
 	}
@@ -500,9 +505,13 @@ function resetGame() {
 		trivia[question].asked = false;
 	}
 
-	$(contentDiv).html("");
+	$("#play-area-row").fadeTo(1 * 1000, 0)
 
-	startGame();
+	setTimeout(function() {
+		$(contentDiv).html("");
+
+		startGame();
+	}, 1.2 * 1000);
 }
 
 // clear the play area element
